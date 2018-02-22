@@ -2,6 +2,7 @@ package pack;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Date;
 import java.util.Enumeration;
 
 import javax.servlet.*;
@@ -49,6 +50,23 @@ public class Practica1 extends HttpServlet {
 				}
 			}
 		}
+		HttpSession sesion = request.getSession(true);
+		response.setContentType("text/html");
+		PrintWriter html = response.getWriter();
+		html.println("<strong>");
+		Date date = (Date)sesion.getAttribute("date");
+		sesion.setMaxInactiveInterval(2000);
+		if(date!= null) {
+			html.print("Último acceso de la sesión: " +date +"<br>");
+			
+		}else {
+			html.print("Este es el primer acceso de la sesión <br>");
+			
+		}
+		date = new Date(0);
+		sesion.setAttribute("date", date);
+		html.print("Fecha actual : " +date);
+		html.print("</strong>");
 	}
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
