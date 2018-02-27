@@ -30,14 +30,14 @@ public class Practica1 extends HttpServlet {
 		// TODO Auto-generated method stub
 		response.setContentType("text/html");
 		PrintWriter out = response.getWriter();
-		out.println("<html><head><title>Servlet Test</title></head>");
-		out.println("<body ><center><h1> THIS IS A SERVLET TEST </h1>");
-		String answer = request.getParameter("username");
-		out.println("<h2> The username is: " + answer + "</h2>");
-		/*Date date = new Date();
-		out.println("<h3>The time at the server is " + date.toString() +"</h3>");
+		out.println("<html><head><title>Formulario Cookies</title></head>");
+		out.println("<body ><center><h1> Únase a nuestra lista de correo </h1>");
+		out.println("<p> Introduzca sus datos: </p>");
+		out.println("<form action='Practica1'method='post'> Email:<br><input type='email' name='email' required><br>"
+				+ "Nombre:<br><input type='text' name='nombre' required><br>"
+				+ "Apellidos:<br><input type='text' name='apellidos' required<br><input type='submit' value='Registrarse'></form>");
 		out.println("</center></body></html>");
-		out.close();*/
+		out.close();
 		out.println("Request Headers: ");
 		Enumeration names = request.getHeaderNames();
 		while (names.hasMoreElements()) {
@@ -67,12 +67,24 @@ public class Practica1 extends HttpServlet {
 		sesion.setAttribute("date", date);
 		html.print("Fecha actual : " +date);
 		html.print("</strong>");
+		
+		
 	}
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 			/* IMPLEMENTACIÓN DEL CÓDIGO QUE LEE LA PETICIÓN DE TIPO POST
 			Y GENERA LA RESPUESTA */
-			}
+		/*Cookies permanentes*/
+		String nombre = request.getParameter("nombre");
+		String apellidos = request.getParameter("apellidos");
+		String email = request.getParameter("email");
+		Cookie c = new Cookie("nombreCookie", nombre);
+		c.setMaxAge(60*6024*365*2);
+		c.setPath("/");
+		response.addCookie(c);
+		PrintWriter out = response.getWriter();
+	    out.println(nombre + ": "+ c);
+	}
 
 }
