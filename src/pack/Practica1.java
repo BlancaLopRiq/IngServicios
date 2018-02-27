@@ -80,11 +80,18 @@ public class Practica1 extends HttpServlet {
 		String apellidos = request.getParameter("apellidos");
 		String email = request.getParameter("email");
 		Cookie c = new Cookie("nombreCookie", nombre);
-		c.setMaxAge(60*6024*365*2);
-		c.setPath("/");
+		c.setMaxAge(60);
 		response.addCookie(c);
+		Cookie[] cookies = request.getCookies();
+		for (Cookie cookie: cookies) {
+			cookie.setMaxAge(0);
+			cookie.setPath("/");
+			response.addCookie(cookie);
+		}
+			/*
 		PrintWriter out = response.getWriter();
-	    out.println(nombre + ": "+ c);
+	    out.println(nombre + ": "+ c);*/
+		
 	}
 
 }
