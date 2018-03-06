@@ -1,9 +1,8 @@
 package pack;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.sql.Date;
-import java.util.Enumeration;
+
+
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebServlet;
@@ -27,18 +26,13 @@ public class Practica1 extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String url="/WEB-INF/Index.html";
+		getServletContext().getRequestDispatcher(url).forward(request,response);
 		// TODO Auto-generated method stub
-		response.setContentType("text/html");
-		PrintWriter out = response.getWriter();
-		out.println("<html><head><title>Formulario Cookies</title></head>");
-		out.println("<body ><center><h1> Únase a nuestra lista de correo </h1>");
-		out.println("<p> Introduzca sus datos: </p>");
-		out.println("<form action='Practica1'method='post'> Email:<br><input type='email' name='email' required><br>"
-				+ "Nombre:<br><input type='text' name='nombre' required><br>"
-				+ "Apellidos:<br><input type='text' name='apellidos' required<br><input type='submit' value='Registrarse'></form>");
-		out.println("</center></body></html>");
-		out.close();
-		out.println("Request Headers: ");
+		
+		
+		/*SESION 1
+		 * out.println("Request Headers: ");
 		Enumeration names = request.getHeaderNames();
 		while (names.hasMoreElements()) {
 			String name = (String) names.nextElement();
@@ -49,7 +43,7 @@ public class Practica1 extends HttpServlet {
 					out.println(name + ": " + value);
 				}
 			}
-		}
+		}*//*
 		HttpSession sesion = request.getSession(true);
 		response.setContentType("text/html");
 		PrintWriter html = response.getWriter();
@@ -66,7 +60,7 @@ public class Practica1 extends HttpServlet {
 		date = new Date(0);
 		sesion.setAttribute("date", date);
 		html.print("Fecha actual : " +date);
-		html.print("</strong>");
+		html.print("</strong>");*/
 		
 		
 	}
@@ -75,10 +69,25 @@ public class Practica1 extends HttpServlet {
 			throws ServletException, IOException {
 			/* IMPLEMENTACIÓN DEL CÓDIGO QUE LEE LA PETICIÓN DE TIPO POST
 			Y GENERA LA RESPUESTA */
+
+		String usuario = request.getParameter("usuario");
+		String passw = request.getParameter("clave");
+		String url = "";
+		UsuarioDAO db = new UsuarioDAO();
+		if (db.checkAdmin(usuario, passw)) {
+			url = "/WE-INF/ListaUsuarios.jsp";
+		}
+			else {
+				url = "/WEB-INF/Error.jsp";
+				getServletContext().getRequestDispatcher(url).forward(request, response);
+			}
+			
+		}
 		/*Cookies permanentes*/
-		String nombre = request.getParameter("nombre");
+		/*
 		String apellidos = request.getParameter("apellidos");
 		String email = request.getParameter("email");
+		String nombre = request.getParameter("nombre");
 		Cookie c = new Cookie("nombreCookie", nombre);
 		c.setMaxAge(60);
 		response.addCookie(c);
@@ -94,4 +103,4 @@ public class Practica1 extends HttpServlet {
 		
 	}
 
-}
+
