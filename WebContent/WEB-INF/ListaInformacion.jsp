@@ -7,6 +7,8 @@
 <title>Información almacenada</title>
 </head>
 <body>
-
+<p> Email: ${email}<br>
+	Telefono : ${telefono}<br>
+	Código Postal : ${cpostal} </p>
 </body>
 </html>

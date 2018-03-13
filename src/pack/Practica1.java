@@ -73,7 +73,7 @@ public class Practica1 extends HttpServlet {
 		String usuario = request.getParameter("usuario");
 		String passw = request.getParameter("clave");
 		String url = "";
-		UsuarioDAO db = new UsuarioDAO();
+		UsuarioDTO db = new UsuarioDTO();
 		if (db.checkAdmin(usuario, passw)) {
 			url = "/WE-INF/ListaUsuarios.jsp";
 		}

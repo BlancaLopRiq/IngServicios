@@ -1,10 +1,10 @@
 package pack;
 
-public class UsuarioDAO {
+public class UsuarioDTO {
 	private  String usuario;
 	private  String clave;
 	
-	public UsuarioDAO() {
+	public UsuarioDTO() {
 		this.usuario = usuario;
 		this.clave = clave;
 	}
@@ -39,5 +39,6 @@ public class UsuarioDAO {
 		// TODO Auto-generated method stub
 		return false;
 	}
+
 
 }
